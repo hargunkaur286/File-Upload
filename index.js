@@ -16,7 +16,7 @@ const app = express();
 
 // const upload = multer({dest: "uploads/"});
 // const multiUpload = upload.fields([
-//     {name: "avatar", maxCount: 1}, 
+//     {name: "avatar", maxCount: 1},
 //     {name: "resume", maxCount: 1},
 // ]);
 
@@ -26,36 +26,33 @@ const app = express();
 //     res.json({status: "success"});
 // });
 
-
 //for multiple file uploads
 
 //custom filename
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads");
-    },
-    filename: (req, file, cb) => {
-        const {originalname} = file;
-        cb(null, `${uuid()}-${originalname}`)
-    }
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    const { originalname } = file;
+    cb(null, `${uuid()}-${originalname}`);
+  },
 });
 
 const fileFilter = (req, file, cb) => {
-    if(file.mimetype.split("/")[0] === 'image'){
-        cb(null, true);
-    }
-    else{
-        cb(new Error("File is not of the correct type!"))
-    }
-}
+  if (file.mimetype.split("/")[0] === "image") {
+    cb(null, true);
+  } else {
+    cb(new Error("File is not of the correct type!"));
+  }
+};
 
-// {"image", "jpeg"}
+// ["image", "jpeg"]
 
-const upload = multer({storage, fileFilter});
+const upload = multer({ storage, fileFilter, limits: { fileSize: 1000000000, files: 2 } });
 
 app.post("/upload", upload.array("file"), (req, res) => {
-    res.json({status: "success"});
+  res.json({ status: "success" });
 });
 
 app.listen(4000, () => console.log("listening on port 4000"));
-
