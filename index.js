@@ -40,7 +40,18 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({storage});
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype.split("/")[0] === 'image'){
+        cb(null, true);
+    }
+    else{
+        cb(new Error("File is not of the correct type!"))
+    }
+}
+
+// {"image", "jpeg"}
+
+const upload = multer({storage, fileFilter});
 
 app.post("/upload", upload.array("file"), (req, res) => {
     res.json({status: "success"});
