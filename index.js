@@ -1,5 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const multer = require("multer");
+const { s3Uploadv2 } = require("./s3Service");
 const uuid = require("uuid").v4;
 
 const app = express();
@@ -29,15 +31,17 @@ const app = express();
 //for multiple file uploads
 
 //custom filename
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    const { originalname } = file;
-    cb(null, `${uuid()}-${originalname}`);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads");
+//   },
+//   filename: (req, file, cb) => {
+//     const { originalname } = file;
+//     cb(null, `${uuid()}-${originalname}`);
+//   },
+// });
+
+const storage = multer.memoryStorage()
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.split("/")[0] === "image") {
@@ -55,9 +59,28 @@ const upload = multer({
   limits: { fileSize: 1000000000, files: 2 },
 });
 
-app.post("/upload", upload.array("file"), (req, res) => {
-  res.json({ status: "success" });
+// app.post("/upload", upload.array("file"), async(req, res) => {
+//     const file = req.files[0];
+//     const result = await s3Uploadv2()
+//   res.json({ status: "success", result });
+// });
+
+app.post("/upload", upload.array("file"), async (req, res) => {
+    try {
+        const files = req.files; 
+        if (!files || files.length === 0) {
+            return res.status(400).json({ status: "error", message: "No files uploaded" });
+        }
+
+        const result = await s3Uploadv2(files[0]);
+
+        res.json({ status: "success", result });
+    } catch (error) {
+        console.error("Error uploading files:", error);
+        res.status(500).json({ status: "error", message: error.message });
+    }
 });
+
 
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {
