@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://file-upload-topaz.vercel.app/", 
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
