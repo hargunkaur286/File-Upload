@@ -128,7 +128,7 @@ export default {
       });
 
       try {
-        const response = await axios.post("http://localhost:4000/upload", formData, {
+        const response = await axios.post("https://lendwire-assignment-hargun-backend.vercel.app/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
