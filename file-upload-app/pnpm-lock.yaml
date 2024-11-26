@@ -14,9 +14,15 @@ importers:
       core-js:
         specifier: ^3.8.3
         version: 3.39.0
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
       vue:
         specifier: ^3.2.13
         version: 3.5.13
+      vue-toastification:
+        specifier: 2.0.0-rc.5
+        version: 2.0.0-rc.5(vue@3.5.13)
     devDependencies:
       '@babel/core':
         specifier: ^7.12.16
@@ -1570,6 +1576,10 @@ packages:
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
+
+  cors@2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
 
   cosmiconfig@7.1.0:
     resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
@@ -3756,6 +3766,11 @@ packages:
   vue-template-es2015-compiler@1.9.1:
     resolution: {integrity: sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==}
 
+  vue-toastification@2.0.0-rc.5:
+    resolution: {integrity: sha512-q73e5jy6gucEO/U+P48hqX+/qyXDozAGmaGgLFm5tXX4wJBcVsnGp4e/iJqlm9xzHETYOilUuwOUje2Qg1JdwA==}
+    peerDependencies:
+      vue: ^3.0.2
+
   vue@3.5.13:
     resolution: {integrity: sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==}
     peerDependencies:
@@ -5824,6 +5839,11 @@ snapshots:
   core-js@3.39.0: {}
 
   core-util-is@1.0.3: {}
+
+  cors@2.8.5:
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
 
   cosmiconfig@7.1.0:
     dependencies:
@@ -8070,6 +8090,10 @@ snapshots:
       loader-utils: 1.4.2
 
   vue-template-es2015-compiler@1.9.1: {}
+
+  vue-toastification@2.0.0-rc.5(vue@3.5.13):
+    dependencies:
+      vue: 3.5.13
 
   vue@3.5.13:
     dependencies:
