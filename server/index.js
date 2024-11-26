@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://file-upload-topaz.vercel.app/",
+    origin: "https://file-upload-topaz.vercel.app/", 
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
@@ -97,4 +97,5 @@ app.use((error, req, res, next) => {
   next();
 });
 
-app.listen(4000, () => console.log("listening on port 4000"));
+// app.listen(4000, () => console.log("listening on port 4000"));
+module.exports = app;
