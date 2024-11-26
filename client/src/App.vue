@@ -1,26 +1,31 @@
 <template>
   <div class="min-h-screen bg-green-50">
+    <!-- Navbar -->
     <nav class="bg-green-600 text-white py-4 px-6 shadow-md">
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-2xl font-bold">lendwire</h1>
-        <ul class="flex space-x-6">
+        <ul class="hidden md:flex space-x-6">
           <li><a href="#" class="hover:underline">Home</a></li>
           <li><a href="#" class="hover:underline">About</a></li>
           <li><a href="#" class="hover:underline">Contact</a></li>
         </ul>
+        <button class="block md:hidden text-lg">☰</button>
       </div>
     </nav>
 
-    <div class="flex items-center min-h-screen justify-around px-4">
-      <header class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-800">Upload Files,
-Anywhere, Anytime</h2>
-        <p class="text-gray-600 mt-2">
-          Quickly upload your files with drag-and-drop or browsing. <br/> Optimized for efficiency and accessibility.
+    <!-- Content -->
+    <div class="flex flex-col-reverse lg:flex-row items-center justify-around min-h-screen px-4 lg:px-16">
+      <!-- Header Section -->
+      <header class="text-center lg:text-left mb-8 lg:mb-0 lg:w-1/2">
+        <h2 class="text-3xl lg:text-5xl font-bold text-gray-800">Upload Files, Anywhere, Anytime</h2>
+        <p class="text-gray-600 mt-4 text-sm lg:text-base">
+          Quickly upload your files with drag-and-drop or browsing. <br />
+          Optimized for efficiency and accessibility.
         </p>
       </header>
 
-      <div class="bg-white shadow-lg rounded-lg p-6 max-w-md w-full">
+      <!-- Upload Section -->
+      <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
         <div
           class="border-2 border-dashed border-green-500 rounded-lg p-8 text-center hover:bg-green-100 transition relative"
           @dragover.prevent
@@ -37,9 +42,7 @@ Anywhere, Anytime</h2>
               >Browse</span
             >
           </p>
-          <p class="text-sm text-gray-500 mt-1">
-            Supported formats: JPEG, PNG
-          </p>
+          <p class="text-sm text-gray-500 mt-1">Supported formats: JPEG, PNG</p>
           <input
             type="file"
             id="fileInput"
@@ -50,6 +53,7 @@ Anywhere, Anytime</h2>
           />
         </div>
 
+        <!-- File Upload Progress -->
         <div v-if="files.length" class="mt-6">
           <h3 class="text-lg font-semibold mb-3 text-gray-800">
             Uploading - {{ files.length }} file(s)
@@ -68,6 +72,7 @@ Anywhere, Anytime</h2>
           </div>
         </div>
 
+        <!-- Uploaded Files -->
         <div v-if="uploadedFiles.length" class="mt-6">
           <h3 class="text-lg font-semibold mb-3 text-gray-800">Uploaded</h3>
           <div
@@ -82,6 +87,7 @@ Anywhere, Anytime</h2>
           </div>
         </div>
 
+        <!-- Upload Button -->
         <button
           class="w-full bg-green-500 text-white rounded-lg py-2 mt-6 font-semibold hover:bg-green-600 transition"
           @click="uploadFiles"
@@ -128,11 +134,15 @@ export default {
       });
 
       try {
-        const response = await axios.post("https://lendwire-assignment-hargun-backend.vercel.app/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post(
+          "https://lendwire-assignment-hargun-backend.vercel.app/upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         if (response.status === 200) {
           toast.success("Files uploaded successfully!");
